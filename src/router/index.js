@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.vue'
 import { authMiddleware } from '../middlewares/authMiddleware.js'
 
 const routes = [
-  { path: '/', beforeEnter: authMiddleware, component: Layout, children: [
+  { path: '/', component: Layout, children: [
     {
       path: '',
       redirect: { name: 'Login' }
