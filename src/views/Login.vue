@@ -46,7 +46,7 @@ const onFormSubmit = async () => {
     await api.post('/users/login', { email, password })
     toast.success('Login successful!')
     const router = useRouter()
-    router.push({name: 'Home'})
+    router.push('home')
     router
   } catch (error) {
     toast.error(error?.response?.data?.message || 'An unknown error occurred')
