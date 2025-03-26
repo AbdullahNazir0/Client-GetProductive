@@ -16,6 +16,7 @@
 
   const menuItems = ref([
     { label: "Home", to: "/" },
+    { label: "All Tasks", command: () => router.push('/all-tasks') },
     { label: "Settings", command: () => router.push("/settings") },
     { label: "Profile", command: () => router.push("/profile") },
     { label: 'Logout', command: toggleDialog }

@@ -8,6 +8,7 @@
   import InputText from 'primevue/inputtext'
   import DatePicker from 'primevue/datepicker'
   import Select from 'primevue/select'
+  import Tag from 'primevue/tag'
   import { Check, Pencil, Trash2 } from 'lucide-vue-next';
   import api from '../utils/axios.js'
   import { useToast } from 'vue-toast-notification'
@@ -40,8 +41,7 @@
 
     isLoading.value = true
     try {
-      const response = await api.get('/tasks')
-      // tasks.value = response.data.data.sort((a, b) => a.isDone - b.isDone)
+      const response = await api.get('/tasks/home')
       tasks.value = response.data.data.sort((a, b) => {
         if (a.isDone !== b.isDone) return a.isDone - b.isDone;
 
@@ -155,10 +155,10 @@
         <h4 class="text-xl font-semibold text-gray-600">{{ new Date().toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</h4>
         <Button @click="toggleAddDialog" label="Add Task" variant="text" size="large" raised />
     </div>
-    <!-- <div v-if="tasks.length === 0" class="h-[70vh] flex justify-center items-center">
+    <div v-if="tasks.length === 0" class="h-[70vh] flex justify-center items-center">
         <h2 class="text-gray-500 text-lg text-center">No Tasks Found</h2>
-    </div> -->
-    <DataTable :value="tasks"
+    </div>
+    <DataTable v-else :showHeader="tasks.length > 0" :value="tasks"
         emptyMessage="No Tasks Found"
         :loading="isLoading"
         tableStyle="min-width: 50rem; height: auto; max-height: 70vh"
@@ -177,6 +177,13 @@
                 </span>
             </template>
         </Column>
+        <Column header="Created At" field="createdAt">
+            <template #body="{ data }">
+                <span :class="{ 'line-through text-gray-500': data.isDone }">
+                    {{ data.deadline ? new Date(data.createdAt).toLocaleDateString('en-GB') : 'N/A' }}
+                </span>
+            </template>
+        </Column>
         <Column header="Deadline" field="deadline">
             <template #body="{ data }">
                 <span :class="{ 'line-through text-gray-500': data.isDone }">
@@ -186,9 +193,14 @@
         </Column>
         <Column header="Priority" field="priority">
             <template #body="{ data }">
-                <span :class="{ 'line-through text-gray-500': data.isDone }">
+                <!-- <span :class="{ 'line-through text-gray-500': data.isDone }">
                     {{ data.priority == 0 ? 'Low' : data.priority == 1 ? 'Medium' : 'High' }}
-                </span>
+                </span> -->
+                <Tag
+                    :value="data.priority === 0 ? 'Low' : data.priority === 1 ? 'Medium' : 'High'"
+                    :severity="data.priority === 0 ? 'success' : data.priority === 1 ? 'warning' : 'danger'"
+                    :class="{ 'line-through text-gray-500': data.isDone }"
+                />
             </template>
         </Column>
 
