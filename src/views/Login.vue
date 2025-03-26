@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import api from '../utils/axios.js'
 import { InputText, Message, Password, Button } from 'primevue'
 import { Form, FormField } from '@primevue/forms'
@@ -44,6 +45,9 @@ const onFormSubmit = async () => {
   try {
     await api.post('/users/login', { email, password })
     toast.success('Login successful!')
+    const router = useRouter()
+    router.push({name: 'Home'})
+    router
   } catch (error) {
     toast.error(error?.response?.data?.message || 'An unknown error occurred')
   } finally {
