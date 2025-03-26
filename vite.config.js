@@ -7,5 +7,9 @@ export default defineConfig({
   plugins: [vue(), tailwindcss()],
   server: {
       historyApiFallback: true // Ensures SPA routing works
-    }
+  },
+  base: '/',  // Ensure correct base path
+  build: {
+    outDir: 'dist'
+  }
 })
