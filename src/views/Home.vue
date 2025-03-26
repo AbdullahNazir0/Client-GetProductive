@@ -1,5 +1,6 @@
 <script setup>
   import { ref, onMounted } from 'vue'
+  import ProgressBar from 'primevue/progressbar'
   import DataTable from 'primevue/datatable'
   import Column from 'primevue/column'
   import Dialog from 'primevue/dialog'
@@ -146,7 +147,9 @@
 </script>
 
 <template>
-    <ProgressBar :showValue="isLoading" mode="indeterminate" style="height: 6px"></ProgressBar>
+    <div class="fixed top-0 left-0 w-full">
+        <ProgressBar v-if="isLoading" mode="indeterminate" style="height: 6px" />
+    </div>
     <div class="h-[20vh] flex justify-between items-center px-10">
         <h1 class="text-4xl font-bold text-primary">Today&apos;s Tasks</h1>
         <h4 class="text-xl font-semibold text-gray-600">{{ new Date().toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</h4>
