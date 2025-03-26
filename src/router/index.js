@@ -5,7 +5,11 @@ import Layout from '../layouts/Layout.vue'
 
 const routes = [
   { path: '/', component: Layout, children: [
-    { path: '', component: () => import('../views/Home.vue') },
+    {
+      path: '',
+      redirect: { name: 'Login' }
+    },
+    { path: '/home', component: () => import('../views/Home.vue') }
     // { path: 'settings', component: () => import('../views/Settings.vue') },
     // { path: 'profile', component: () => import('../views/Profile.vue') }
   ]},
