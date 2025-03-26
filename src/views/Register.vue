@@ -67,6 +67,7 @@ const onFormSubmit = async () => {
 
 <template>
   <div class="flex justify-center items-center min-h-screen">
+   <ProgressBar :showValue="isLoading" mode="indeterminate" style="height: 6px"></ProgressBar>
     <div class="p-6 rounded-xl border shadow-md w-full max-w-md">
       <h2 class="text-2xl font-semibold mb-4 text-center">Register</h2>
       <Form @submit="onFormSubmit" class="flex flex-col gap-4">

@@ -146,6 +146,7 @@
 </script>
 
 <template>
+    <ProgressBar :showValue="isLoading" mode="indeterminate" style="height: 6px"></ProgressBar>
     <div class="h-[20vh] flex justify-between items-center px-10">
         <h1 class="text-4xl font-bold text-primary">Today&apos;s Tasks</h1>
         <h4 class="text-xl font-semibold text-gray-600">{{ new Date().toLocaleDateString('en-GB', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }) }}</h4>
