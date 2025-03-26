@@ -6,6 +6,7 @@ import { InputText, Message, Password, Button } from 'primevue'
 import { Form, FormField } from '@primevue/forms'
 import { useToast } from 'vue-toast-notification'
 
+const router = useRouter()
 const toast = useToast()
 const isLoading = ref(false)
 
@@ -45,9 +46,7 @@ const onFormSubmit = async () => {
   try {
     await api.post('/users/login', { email, password })
     toast.success('Login successful!')
-    const router = useRouter()
     router.push('home')
-    router
   } catch (error) {
     toast.error(error?.response?.data?.message || 'An unknown error occurred')
   } finally {
