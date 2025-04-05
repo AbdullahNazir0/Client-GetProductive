@@ -1,17 +1,19 @@
 <script setup>
   import { ref, onMounted } from 'vue'
-  import ProgressBar from 'primevue/progressbar'
-  import DataTable from 'primevue/datatable'
-  import Column from 'primevue/column'
-  import Dialog from 'primevue/dialog'
-  import Button from 'primevue/button'
-  import InputText from 'primevue/inputtext'
-  import DatePicker from 'primevue/datepicker'
-  import Select from 'primevue/select'
-  import Tag from 'primevue/tag'
+  import {
+    ProgressBar,
+    DataTable,
+    Column,
+    Dialog,
+    Button,
+    InputText,
+    DatePicker,
+    Select,
+    Tag,
+  } from 'primevue'
   import { Check, Pencil, Trash2 } from 'lucide-vue-next';
-  import api from '../utils/axios.js'
   import { useToast } from 'vue-toast-notification'
+  import api from '../utils/axios.js'
 
   const isLoading = ref(false)
   const tasks = ref([])

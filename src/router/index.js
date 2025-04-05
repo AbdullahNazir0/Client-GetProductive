@@ -8,11 +8,10 @@ const routes = [
   { path: '/', component: Layout, children: [
     {
       path: '',
-      redirect: { name: 'Login' }
+      redirect: { name: 'home' }
     },
-    { name: 'Home', path: '/home', beforeEnter: authMiddleware, component: () => import('../views/Home.vue') }
-    // { path: 'settings', component: () => import('../views/Settings.vue') },
-    // { path: 'profile', component: () => import('../views/Profile.vue') }
+    { name: 'Home', path: '/home', beforeEnter: authMiddleware, component: () => import('../views/Home.vue') },
+    { name: 'AllTasks', path: '/all-tasks', beforeEnter: authMiddleware, component: () => import('../views/AllTasks.vue') },
   ]},
   { name: 'Register', path: '/auth/register', component: Register },
   { name: 'Login', path: '/auth/login', component: Login }
