@@ -8,7 +8,7 @@ const routes = [
   { path: '/', component: Layout, children: [
     {
       path: '',
-      redirect: { name: 'home' }
+      redirect: { name: 'Home' }
     },
     { name: 'Home', path: '/home', beforeEnter: authMiddleware, component: () => import('../views/Home.vue') },
     { name: 'AllTasks', path: '/all-tasks', beforeEnter: authMiddleware, component: () => import('../views/AllTasks.vue') },
