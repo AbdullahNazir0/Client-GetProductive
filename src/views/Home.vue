@@ -146,6 +146,14 @@
       isLoading.value = false
     }
   }
+
+  const isOneDayLeft = (dueDate) => {
+      const today = new Date();
+      const due = new Date(dueDate);
+      const diffTime = due - today;
+      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+      return diffDays === 1;
+    }
 </script>
 
 <template>
@@ -167,28 +175,28 @@
     >
         <Column header="Title" field="title">
             <template #body="{ data }">
-                <span :class="{ 'line-through text-gray-500': data.isDone }">
+                <span :class="{ 'line-through text-gray-500': data.isDone, 'text-red-600': isOneDayLeft(data.dueDate) }">
                     {{ data.title }}
                 </span>
             </template>
         </Column>
         <Column header="Description" field="description">
             <template #body="{ data }">
-                <span :class="{ 'line-through text-gray-500': data.isDone }">
+                <span :class="{ 'line-through text-gray-500': data.isDone, 'text-red-600': isOneDayLeft(data.dueDate) }">
                     {{ data.description }}
                 </span>
             </template>
         </Column>
         <Column header="Created At" field="createdAt">
             <template #body="{ data }">
-                <span :class="{ 'line-through text-gray-500': data.isDone }">
+                <span :class="{ 'line-through text-gray-500': data.isDone, 'text-red-600': isOneDayLeft(data.dueDate)  }">
                     {{ data.deadline ? new Date(data.createdAt).toLocaleDateString('en-GB') : 'N/A' }}
                 </span>
             </template>
         </Column>
         <Column header="Deadline" field="deadline">
             <template #body="{ data }">
-                <span :class="{ 'line-through text-gray-500': data.isDone }">
+                <span :class="{ 'line-through text-gray-500': data.isDone, 'text-red-600': isOneDayLeft(data.deadline) }">
                     {{ data.deadline ? new Date(data.deadline).toLocaleDateString('en-GB') : 'N/A' }}
                 </span>
             </template>
@@ -201,7 +209,7 @@
                 <Tag
                     :value="data.priority === 0 ? 'Low' : data.priority === 1 ? 'Medium' : 'High'"
                     :severity="data.priority === 0 ? 'success' : data.priority === 1 ? 'warning' : 'danger'"
-                    :class="{ 'line-through text-gray-500': data.isDone }"
+                    :class="{ 'line-through text-gray-500': data.isDone, 'text-red-600': isOneDayLeft(data.dueDate) }"
                 />
             </template>
         </Column>
