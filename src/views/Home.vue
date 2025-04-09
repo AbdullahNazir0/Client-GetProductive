@@ -185,7 +185,7 @@
         <Column header="Title" field="title">
             <template #body="{ data }">
                 <span :class="[getDeadlineClass(data.deadline), { 'line-through text-gray-500': data.isDone }]">
-                  {{ data.task }}
+                  {{ data.title }}
                 </span>
             </template>
         </Column>
