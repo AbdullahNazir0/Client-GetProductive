@@ -160,7 +160,7 @@
 
     if (diffDays < 0) return 'text-red-600';       // 🔴 Overdue
     if (diffDays === 0) return 'text-orange-500';  // 🟠 Due Today
-    return '';                                     // No color otherwise
+    return 'text-white';                                     // No color otherwise
   }
 
 </script>
