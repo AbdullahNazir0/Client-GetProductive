@@ -1,5 +1,6 @@
 <script setup>
 import { ref } from 'vue'
+import { useRouter } from 'vue-router'
 import api from '../utils/axios.js'
 import ProgressBar from 'primevue/progressbar'
 import { InputText, Message, Password, Button } from 'primevue'
@@ -8,6 +9,7 @@ import { useToast } from 'vue-toast-notification'
 
 const toast = useToast()
 const isLoading = ref(false)
+const router = useRouter()
 
 const formValues = ref({
   firstname: '',
