@@ -147,13 +147,22 @@
     }
   }
 
-  const isOneDayLeft = (dueDate) => {
-      const today = new Date();
-      const due = new Date(dueDate);
-      const diffTime = due - today;
-      const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      return diffDays === 1;
-    }
+  const getDeadlineClass = (dueDate) => {
+    const today = new Date();
+    const due = new Date(dueDate);
+
+    // Normalize time to midnight
+    today.setHours(0, 0, 0, 0);
+    due.setHours(0, 0, 0, 0);
+
+    const diffTime = due - today;
+    const diffDays = diffTime / (1000 * 60 * 60 * 24);
+
+    if (diffDays < 0) return 'text-red-600';       // 🔴 Overdue
+    if (diffDays === 0) return 'text-orange-500';  // 🟠 Due Today
+    return '';                                     // No color otherwise
+  }
+
 </script>
 
 <template>
@@ -175,28 +184,28 @@
     >
         <Column header="Title" field="title">
             <template #body="{ data }">
-                <span :class="{ 'line-through text-gray-500': data.isDone, 'text-red-600': isOneDayLeft(data.deadline) }">
-                    {{ data.title }}
+                <span :class="[getDeadlineClass(data.deadline), { 'line-through text-gray-500': data.isDone }]">
+                  {{ data.task }}
                 </span>
             </template>
         </Column>
         <Column header="Description" field="description">
             <template #body="{ data }">
-                <span :class="{ 'line-through text-gray-500': data.isDone, 'text-red-600': isOneDayLeft(data.deadline) }">
+                <span :class="[getDeadlineClass(data.deadline), { 'line-through text-gray-500': data.isDone }]">
                     {{ data.description }}
                 </span>
             </template>
         </Column>
         <Column header="Created At" field="createdAt">
             <template #body="{ data }">
-                <span :class="{ 'line-through text-gray-500': data.isDone, 'text-red-600': isOneDayLeft(data.deadline)  }">
+                <span :class="[getDeadlineClass(data.deadline), { 'line-through text-gray-500': data.isDone }]">
                     {{ data.deadline ? new Date(data.createdAt).toLocaleDateString('en-GB') : 'N/A' }}
                 </span>
             </template>
         </Column>
         <Column header="Deadline" field="deadline">
             <template #body="{ data }">
-                <span :class="{ 'line-through text-gray-500': data.isDone, 'text-red-600': isOneDayLeft(data.deadline) }">
+                <span :class="[getDeadlineClass(data.deadline), { 'line-through text-gray-500': data.isDone }]">
                     {{ data.deadline ? new Date(data.deadline).toLocaleDateString('en-GB') : 'N/A' }}
                 </span>
             </template>
@@ -209,7 +218,7 @@
                 <Tag
                     :value="data.priority === 0 ? 'Low' : data.priority === 1 ? 'Medium' : 'High'"
                     :severity="data.priority === 0 ? 'success' : data.priority === 1 ? 'warning' : 'danger'"
-                    :class="{ 'line-through text-gray-500': data.isDone, 'text-red-600': isOneDayLeft(data.deadline) }"
+                    :class="{ 'line-through text-gray-500': data.isDone }"
                 />
             </template>
         </Column>
