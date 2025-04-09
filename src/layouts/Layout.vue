@@ -29,7 +29,7 @@
     try {
       await api.post('/users/logout')
       toast.success('Logged out successfully')
-      router.push("/auth/login")
+      router.push('/auth/login')
     } catch (error) {
       console.error(error)
       toast.error(error.response?.data?.message ?? 'Logout failed')

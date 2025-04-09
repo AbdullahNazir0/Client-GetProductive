@@ -57,7 +57,7 @@ const onFormSubmit = async () => {
   try {
     await api.post('/users/register', { firstName: firstname, lastName: lastname, email, password })
     toast.success('Registration successful!')
-    router.push({ name: 'Login' })
+    router.push('/auth/login')
   } catch (error) {
     toast.error(error?.response?.data?.message || 'An unknown error occurred')
   } finally {
